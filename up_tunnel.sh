@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# sudo ip rule add pref 1001 from 10.200.0.1 lookup 1001
+# sudo ip rule del pref 1001
+
 set -e
 
 ID=$1 && shift
