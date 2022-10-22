@@ -17,7 +17,7 @@ echo "== Tunnel Interface"
 ip -4 address show $WGIFACE
 
 echo "== Loop Interface"
-ip -4 address show wgloop | grep E "$IP_LOOP|wgloop:"
+ip -4 address show wgloop | grep -E "$IP_LOOP|wgloop:"
 
 echo "== Tunnel route"
 ip -4 route show table $TABLE
