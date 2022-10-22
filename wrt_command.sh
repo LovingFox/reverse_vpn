@@ -6,9 +6,6 @@ SERVER="debian.rtru.tk"
 PREFIX="10.200.0.0/16"
 NETWORK="10.200.0.0"
 MASK="255.255.0.0"
-# sudo ip link add wgloop type dummy
-# sudo ip address add 10.200.0.1/32 dev wgloop
-# sudo ip link set wgloop up
 
 ID=$1 && shift
 

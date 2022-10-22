@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# sudo ip rule add pref 1001 from 10.200.0.1 lookup 1001
-# sudo ip rule del pref 1001
-
 set -e
 
 ID=$1 && shift
@@ -18,6 +15,7 @@ PORT=$(cat ${ID5D}_port)
 PUB_CLIENT=$(cat ${ID5D}_public_client.key)
 IP=$(cat ${ID5D}_ip)
 IP_CLIENT=$(cat ${ID5D}_ip_client)
+IP_LOOP=$(cat ${ID5D}_ip_loop)
 
 ip link add dev $WGIFACE type wireguard
 ip addr add $IP/31 dev $WGIFACE
@@ -25,6 +23,9 @@ wg set $WGIFACE listen-port $PORT private-key $KEYFILE
 wg set $WGIFACE peer $PUB_CLIENT allowed-ips $IP_CLIENT,0.0.0.0/0
 ip link set $WGIFACE up
 ip route add default dev $WGIFACE table $TABLE
+
+ip address add $IP_LOOP/32 dev wgloop
+ip rule add pref $TABLE from $IP_LOOP lookup $TABLE
 
 ip -4 address show $WGIFACE
 ip -4 route show table $TABLE

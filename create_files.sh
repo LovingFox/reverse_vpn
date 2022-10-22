@@ -8,6 +8,7 @@ PORTSHIFT=30000
 ID=$1 && shift
 IP=$1 && shift
 IP_CLIENT=$1 && shift
+IP_LOOP=$1 && shift
 
 ID5D=$(printf "%05d" $ID)
 WGIFACE="wg$ID5D"
@@ -28,6 +29,7 @@ wg pubkey < $KEYFILE_CLIENT > $PUBFILE_CLIENT
 
 echo "$IP" > "${ID5D}_ip"
 echo "$IP_CLIENT" > "${ID5D}_ip_client"
+echo "$IP_LOOP" > "${ID5D}_ip_loop"
 echo "$WGIFACE" > "${ID5D}_iface"
 echo "$TABLE" > "${ID5D}_table"
 echo "$PORT" > "${ID5D}_port"
