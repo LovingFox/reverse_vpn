@@ -24,6 +24,8 @@ IP=$(cat ${ID5D}_ip)
 IP_CLIENT=$(cat ${ID5D}_ip_client)
 WG_IF="wg"
 
+NETWORK_ESC=$(echo "$NETWORK" | sed 's/\./\\./g')
+
 cat << EOF
 ######## ADD VPN TUNNEL
 
@@ -58,7 +60,7 @@ uci commit network
 uci add_list firewall.@zone[0].network="${WG_IF}"
 uci -q delete network.${WG_IF}
 uci -q delete network.wgserver
-ROUTE=\$(uci show network | sed -n 's/network\\.\\(.*\\)\\.target.*$NETWORK*/\\1/p')
+ROUTE=\$(uci show network | sed -n 's/network\\.\\(.*\\)\\.target=.*$NETWORK_ESC.*/\\1/p')
 uci delete network.\$ROUTE
 
 uci commit network
