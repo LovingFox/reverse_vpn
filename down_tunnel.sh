@@ -6,6 +6,7 @@ ID=$1 && shift
 
 ID5D=$(printf "%05d" $ID)
 WGIFACE=$(cat ${ID5D}_iface)
+TABLE=$(cat ${ID5D}_table)
 
 ip link delete $WGIFACE
 ip rule del pref $TABLE
