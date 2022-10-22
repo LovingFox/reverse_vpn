@@ -27,6 +27,4 @@ ip route add default dev $WGIFACE table $TABLE
 ip address add $IP_LOOP/32 dev wgloop
 ip rule add pref $TABLE from $IP_LOOP lookup $TABLE
 
-ip -4 address show $WGIFACE
-ip -4 route show table $TABLE
-wg show $WGIFACE
+./show_tunnel.sh $ID
