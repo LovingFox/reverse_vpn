@@ -26,8 +26,8 @@ wg pubkey < $KEYFILE > $PUBFILE
 (umask 0077; wg genkey > $KEYFILE_CLIENT)
 wg pubkey < $KEYFILE_CLIENT > $PUBFILE_CLIENT
 
-echo -n "$IP" > "${ID5D}_ip"
-echo -n "$IP_CLIENT" > "${ID5D}_ip_client"
-echo -n "$WGIFACE" > "${ID5D}_iface"
-echo -n "$TABLE" > "${ID5D}_table"
-echo -n "$PORT" > "${ID5D}_port"
+echo "$IP" > "${ID5D}_ip"
+echo "$IP_CLIENT" > "${ID5D}_ip_client"
+echo "$WGIFACE" > "${ID5D}_iface"
+echo "$TABLE" > "${ID5D}_table"
+echo "$PORT" > "${ID5D}_port"
