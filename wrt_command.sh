@@ -20,9 +20,13 @@ KEY_CLIENT=$(cat ${ID5D}_private_client.key)
 PUB=$(cat ${ID5D}_public.key)
 IP=$(cat ${ID5D}_ip)
 IP_CLIENT=$(cat ${ID5D}_ip_client)
-WG_IF="vpn"
+WG_IF="wg"
 
 cat << EOF
+######## ADD VPN TUNNEL
+
+uci add_list firewall.@zone[0].network="${WG_IF}"
+
 uci -q delete network.${WG_IF}
 uci set network.${WG_IF}="interface"
 uci set network.${WG_IF}.proto="wireguard"
@@ -37,5 +41,19 @@ uci set network.wgserver.endpoint_port="${PORT}"
 uci set network.wgserver.route_allowed_ips="1"
 uci set network.wgserver.persistent_keepalive="25"
 uci add_list network.wgserver.allowed_ips="$IP,$NETWORK"
+
 uci commit network
+
+/etc/init.d/firewall restart
+/etc/init.d/network restart
+
+######## DELETE VPN TUNNEL
+uci add_list firewall.@zone[0].network="${WG_IF}"
+uci -q delete network.${WG_IF}
+uci -q delete network.wgserver
+
+uci commit network
+
+/etc/init.d/firewall restart
+
 EOF
