@@ -23,12 +23,6 @@ IP_CLIENT=$(cat ${ID5D}_ip_client)
 WG_IF="vpn"
 
 cat << EOF
-WG_SERV="${SERVER}"
-WG_PORT="$PORT"
-WG_ADDR="$IP_CLIENT/31"
-WG_KEY="$KEY_CLIENT"
-WG_PUB="$PUB"
-
 uci -q delete network.${WG_IF}
 uci set network.${WG_IF}="interface"
 uci set network.${WG_IF}.proto="wireguard"
