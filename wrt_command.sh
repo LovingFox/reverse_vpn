@@ -3,7 +3,9 @@
 set -e
 
 SERVER="debian.rtru.tk"
-NETWORK="10.200.0.0/16"
+PREFIX="10.200.0.0/16"
+NETWORK="10.200.0.0"
+MASK="255.255.0.0"
 # sudo ip link add wgloop type dummy
 # sudo ip address add 10.200.0.1/32 dev wgloop
 # sudo ip link set wgloop up
@@ -40,7 +42,12 @@ uci set network.wgserver.endpoint_host="${SERVER}"
 uci set network.wgserver.endpoint_port="${PORT}"
 uci set network.wgserver.route_allowed_ips="1"
 uci set network.wgserver.persistent_keepalive="25"
-uci add_list network.wgserver.allowed_ips="$IP,$NETWORK"
+uci add_list network.wgserver.allowed_ips="$IP,$PREFIX"
+
+ROUTE=\$(uci add network route)
+uci set network.\$ROUTE.interface="${WG_IF}"
+uci set network.\$ROUTE.target="$NETWORK"
+uci set network.\$ROUTE.netmask="$MASK"
 
 uci commit network
 
@@ -51,9 +58,12 @@ uci commit network
 uci add_list firewall.@zone[0].network="${WG_IF}"
 uci -q delete network.${WG_IF}
 uci -q delete network.wgserver
+ROUTE=\$(uci show network | sed -n 's/network\\.\\(.*\\)\\.target.*$NETWORK*/\\1/p')
+uci delete network.\$ROUTE
 
 uci commit network
 
 /etc/init.d/firewall restart
+/etc/init.d/network restart
 
 EOF
