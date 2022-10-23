@@ -26,5 +26,9 @@ do
             ONLINE="(.)"
         fi
     fi
+    if [ $LAST -eq 0 ]
+    then
+        DELTA="-"
+    fi
     echo $(printf "%s  %s  %s  %s sec" $ONLINE $REMOTE $IPS $DELTA)
 done < <(wg show $IFACE_LOCAL dump | tail +2)
