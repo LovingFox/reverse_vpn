@@ -11,15 +11,15 @@ set_vars_files() {
 
     export KEY_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.key"
     export PUB_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.pub"
-    export IP_LOCAL__FILE="${DBDIR}/${IDTEXT}_ip_local"
-    export TAB_LOCAL__FILE="${DBDIR}/${IDTEXT}_tab"
-    export PREF_LOCAL__FILE="${DBDIR}/${IDTEXT}_pref"
-    export PORT_LOCAL__FILE="${DBDIR}/${IDTEXT}_port"
-    export IFACE_LOCAL__FILE="${DBDIR}/${IDTEXT}_iface"
+    export IP_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.ip"
+    export TAB_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.tab"
+    export PREF_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.pref"
+    export PORT_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.port"
+    export IFACE_LOCAL__FILE="${DBDIR}/${IDTEXT}_local.iface"
 
     export KEY_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote.key"
-    export PUB_REMOTE__FILE="${DBDIR}/${IDTEXT}_local.key"
-    export IP_REMOTE__FILE="${DBDIR}/${IDTEXT}_ip_remote"
+    export PUB_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote.pub"
+    export IP_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote_ip"
 }
 
 var_to_files() {
