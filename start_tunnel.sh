@@ -43,5 +43,3 @@ else
     echo "Done"
 fi
 EOF
-
-$BASE/show_tunnel.sh $ID
