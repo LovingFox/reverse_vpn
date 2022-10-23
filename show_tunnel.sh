@@ -16,7 +16,7 @@ vars_from_files
 echo -e "\n### Tunnel Interface"
 ip -4 address show $IFACE_LOCAL
 
-echo -e "\n### Tunnel route"
+echo -e "\n### Tunnel route table"
 ip -4 route show table $TAB_LOCAL
 
 echo -e "\n### IP Rule"
