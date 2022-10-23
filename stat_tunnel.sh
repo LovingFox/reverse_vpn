@@ -38,6 +38,7 @@ do
         SEC="sec"
         if [ $LAST -eq 0 ]
         then
+            ONLINE="( )"
             DELTA="-"
             SEC=""
         fi
