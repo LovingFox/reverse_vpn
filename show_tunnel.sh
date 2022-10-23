@@ -13,14 +13,14 @@ source "$BASE/source.sh"
 set_vars_files $ID
 vars_from_files
 
-echo -e "\n== Tunnel Interface"
+echo -e "\n### Tunnel Interface"
 ip -4 address show $IFACE_LOCAL
 
-echo -e "\n== Tunnel Interface"
-ip rule show pref $PREF_LOCAL
-
-echo -e "\n== Tunnel route"
+echo -e "\n### Tunnel route"
 ip -4 route show table $TAB_LOCAL
 
-echo -e "\n== Wireguard"
+echo -e "\n### IP Rule"
+ip rule show pref $PREF_LOCAL
+
+echo -e "\n### Wireguard"
 wg show $IFACE_LOCAL
