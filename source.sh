@@ -52,7 +52,7 @@ vars_from_files() {
        FILE_NAME=$(echo ${!FILE_VARNAME})
        if [ ! -f "$FILE_NAME" ]
        then
-           echo >&2 "File $FILE_NAME does not extst"
+           echo >&2 "ERROR: File $FILE_NAME does not extst"
            FILES_ERROR=1
        else
            VARNAME=$(echo $FILE_VARNAME | sed 's/__FILE//')
