@@ -16,6 +16,7 @@ cat << EOF
 ##### openwrt CREATE vpn tunnel commands #####
 ##############################################
 
+uci del_list firewall.@zone[0].network="${IFACE_REMOTE}"
 uci add_list firewall.@zone[0].network="${IFACE_REMOTE}"
 
 uci -q delete network.${IFACE_REMOTE}

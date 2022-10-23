@@ -16,7 +16,7 @@ cat << EOF
 ##### openwrt REMOVE vpn tunnel commands #####
 ##############################################
 
-uci add_list firewall.@zone[0].network="${IFACE_REMOTE}"
+uci del_list firewall.@zone[0].network="${IFACE_REMOTE}"
 uci -q delete network.${IFACE_REMOTE}
 uci -q delete network.wgserver
 
