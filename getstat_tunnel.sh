@@ -8,7 +8,7 @@ DBDIR="$BASE/db"
 if [ $# -eq 0 ]
 then
     [ -d "$DBDIR" ] || (echo "$DBDIR not found" && exit 1)
-    LIST=$(ls -1 $DBDIR | sed 's/0\+\([0-9]*\)_.*/\1/' | sort -u)
+    LIST=$(ls -1 $DBDIR | sed 's/_.*//; s/^0*//' | sort -u)
 else
     LIST=$@
 fi
