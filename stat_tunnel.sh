@@ -26,9 +26,11 @@ do
             ONLINE="(.)"
         fi
     fi
+    SEC="sec"
     if [ $LAST -eq 0 ]
     then
         DELTA="-"
+        SEC=""
     fi
-    printf "%s %s %22s  %s  %s  %s sec\n" $ONLINE $IFACE_LOCAL $REMOTE $PORT_LOCAL $IPS $DELTA
+    printf "%s %s %22s  %s  %s  %s %s\n" $ONLINE $IFACE_LOCAL $REMOTE $PORT_LOCAL $IPS $DELTA $SEC
 done < <(wg show $IFACE_LOCAL dump | tail +2)
