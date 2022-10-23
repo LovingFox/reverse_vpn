@@ -51,14 +51,16 @@ vars_from_files() {
     FILES_ERROR=0
     for FILE_VARNAME in $(env | grep __FILE | sed 's/=.*//')
     do
+       FILE_NAME=$(echo ${!FILE_VARNAME})
        if [ ! -f "$FILE_NAME" ]
        then
            echo >&2 "ERROR: File $FILE_NAME does not extst"
-           exit 1
+           FILES_ERROR=1
        else
            VARNAME=$(echo $FILE_VARNAME | sed 's/__FILE//')
            read $VARNAME <<< $(cat $FILE_NAME)
            export $VARNAME
        fi
     done
+    if [ "$FILES_ERROR" = "1" ]; then exit 1; fi 
 }
