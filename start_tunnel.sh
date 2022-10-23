@@ -12,10 +12,10 @@ set_vars_files $ID
 vars_from_files
 
 cat <<EOF
-echo "Creating $IFACE_LOCAL interface ($IP_LOCAL -> $IP_REMOTE, port $PORT_LOCAL) ..."
+echo -n "Creating $IFACE_LOCAL interface ($IP_LOCAL -> $IP_REMOTE, port $PORT_LOCAL)... "
 if ip link show dev $IFACE_LOCAL > /dev/null 2>&1
 then
-    echo "Interface $IFACE_LOCAL exists. Skip ..."
+    echo "Skip, $IFACE_LOCAL exists"
 else
     ip link add dev $IFACE_LOCAL type wireguard
     ip addr add $IP_LOCAL/31 dev $IFACE_LOCAL
@@ -25,19 +25,19 @@ else
     echo "Done"
 fi
 
-echo "Adding default -> $IFACE_LOCAL in $TAB_LOCAL table ..."
+echo -n "Adding default -> $IFACE_LOCAL in $TAB_LOCAL table... "
 if [[ \$(ip route show table $TAB_LOCAL) ]]
 then
-    echo "Table $TAB_LOCAL is not empty. Skip ..."
+    echo "Skip, $TAB_LOCAL not empty"
 else
     ip route add default dev $IFACE_LOCAL table $TAB_LOCAL
     echo "Done"
 fi
 
-echo "Inserting ip rule from $IP_LOCAL with pref $PREF_LOCAL ..."
+echo -n "Inserting ip rule from $IP_LOCAL with pref $PREF_LOCAL... "
 if [[ \$(ip rule show pref $PREF_LOCAL) ]]
 then
-    echo "IP rule $PREF_LOCAL exists. Skip ..."
+    echo "Skip, $PREF_LOCAL exists"
 else
     ip rule add pref $PREF_LOCAL from $IP_LOCAL lookup $TAB_LOCAL
     echo "Done"
