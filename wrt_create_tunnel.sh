@@ -34,6 +34,7 @@ uci set network.wgserver.route_allowed_ips="1"
 uci set network.wgserver.persistent_keepalive="25"
 uci add_list network.wgserver.allowed_ips="$IP_LOCAL"
 
+uci commit firewall
 uci commit network
 
 /etc/init.d/firewall restart

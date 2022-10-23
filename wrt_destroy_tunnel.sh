@@ -20,6 +20,7 @@ uci del_list firewall.@zone[0].network="${IFACE_REMOTE}"
 uci -q delete network.${IFACE_REMOTE}
 uci -q delete network.wgserver
 
+uci commit firewall
 uci commit network
 
 /etc/init.d/firewall restart
