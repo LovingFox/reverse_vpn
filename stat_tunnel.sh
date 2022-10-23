@@ -22,7 +22,7 @@ do
 
     if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
     then
-        printf "(x) %s %15s  %22s  %5s  %s\n" $IFACE_LOCAL $IP_LOCAL "" "" "-"
+        printf "(x) %s %15s  %22s  %5s  %s\n" $IFACE_LOCAL $IP_LOCAL "" $PORT_LOCAL "-"
         continue
     fi
 
