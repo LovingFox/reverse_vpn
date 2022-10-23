@@ -54,6 +54,7 @@ vars_from_files() {
        if [ ! -f "$FILE_NAME" ]
        then
            echo >&2 "ERROR: File $FILE_NAME does not extst"
+           exit 1
        else
            VARNAME=$(echo $FILE_VARNAME | sed 's/__FILE//')
            read $VARNAME <<< $(cat $FILE_NAME)
