@@ -20,5 +20,5 @@ do
     DELTA=$(( $CURRENT - $LAST ))
     ONLINE="*"
     [ $DELTA -le $STAT_MAXDELTA ] && ONLINE=" "
-    echo $(format "%s  %s %s  %s  %s sec" $PUBKEY $ONLINE $REMOTE $IPS $DELTA")
+    echo $(printf "%s  %s %s  %s  %s sec" $PUBKEY $ONLINE $REMOTE $IPS $DELTA)
 done < <(wg show $IFACE_LOCAL dump | grep ":")
