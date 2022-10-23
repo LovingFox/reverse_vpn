@@ -23,14 +23,14 @@ else
     ip link set $IFACE_LOCAL up
 fi
 
-if [[ $(ip route show table $TAB_LOCAL) ]]
+if [[ \$(ip route show table $TAB_LOCAL) ]]
 then
     >&2 echo "WARNING: Table $TAB_LOCAL is not empty. Skip..."
 else
     ip route add default dev $IFACE_LOCAL table $TAB_LOCAL
 fi
 
-if [[ $(ip rule show pref $PREF_LOCAL) ]]
+if [[ \$(ip rule show pref $PREF_LOCAL) ]]
 then
     >&2 echo "WARNING: IP rule $PREF_LOCAL exists. Skip..."
 else
