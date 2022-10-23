@@ -12,19 +12,19 @@ set_vars_files $ID
 vars_from_files
 
 cat <<EOF
-echo "Deleting $IFACE_LOCAL interface ..."
+echo -n "Deleting $IFACE_LOCAL interface... "
 if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
 then
-    echo "Interface $IFACE_LOCAL does not exist. Skip ..."
+    echo "$IFACE_LOCAL not found. Skip"
 else
     ip link delete $IFACE_LOCAL
     echo "Done"
 fi
 
-echo "Removing ip rule with pref $PREF_LOCAL ..."
+echo -n "Removing ip rule with pref $PREF_LOCAL... "
 if [[ ! \$(ip rule show pref $PREF_LOCAL) ]]
 then
-    echo "IP rule $PREF_LOCAL does not exist. Skip ..."
+    echo "$PREF_LOCAL not found. Skip"
 else
     ip rule del pref $TAB_LOCAL
     echo "Done"
