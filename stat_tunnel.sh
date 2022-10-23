@@ -22,7 +22,7 @@ do
 
     if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
     then
-        printf "(x) %s %15s  %22s  %5s  %s\n" $IFACE_LOCAL $IP_LOCAL "" $PORT_LOCAL "-"
+        printf "(x) %s %5s %15s  %22s  %s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "" "-"
         continue
     fi
 
@@ -46,6 +46,6 @@ do
             ONLINE="( )"
             DELTA="-"
         fi
-        printf "%s %s %15s  %22s  %5s  %s\n" "$ONLINE" $IFACE_LOCAL $IP_LOCAL $REMOTE $PORT_LOCAL $DELTA
+        printf "%s %s %5s %15s  %22s  %s\n" "$ONLINE" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL $REMOTE $DELTA
     done < <(wg show $IFACE_LOCAL dump | tail +2)
 done
