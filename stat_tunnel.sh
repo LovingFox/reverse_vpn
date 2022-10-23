@@ -16,9 +16,9 @@ vars_from_files
 CURRENT=$(date +%s)
 while read -r LINE
 do
-    read -r PUBKEY _ REMOTE IPS LAST RECEIVED SENT<<< $LINE
+    read -r _ _ REMOTE IPS LAST RECEIVED SENT<<< $LINE
     DELTA=$(( $CURRENT - $LAST ))
     ONLINE="*"
-    [ $DELTA -le $STAT_MAXDELTA ] && ONLINE=" "
-    echo $(printf "%s  %s %s  %s  %s sec" $PUBKEY $ONLINE $REMOTE $IPS $DELTA)
+    [ $DELTA -le $STAT_MAXDELTA ] && ONLINE="."
+    echo $(printf "%s  %s  %s  %s sec" $ONLINE $REMOTE $IPS $DELTA)
 done < <(wg show $IFACE_LOCAL dump | grep ":")
