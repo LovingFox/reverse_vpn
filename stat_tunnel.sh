@@ -14,7 +14,7 @@ vars_from_files
 CURRENT=$(date +%s)
 while read -r LINE
 do
-    read -r _ _ REMOTE IPS LAST RECEIVED SENT<<< $LINE
+    read -r _ _ REMOTE _ LAST RECEIVED SENT<<< $LINE
     DELTA=$(( $CURRENT - $LAST ))
     ONLINE="(*)"
     if [ $DELTA -gt $STAT_MAXDELTA1 ]
@@ -32,5 +32,5 @@ do
         DELTA="-"
         SEC=""
     fi
-    printf "%s %s %22s  %s  %s  %s %s\n" $ONLINE $IFACE_LOCAL $REMOTE $PORT_LOCAL $IPS $DELTA $SEC
+    printf "%s %s %15s  %22s  %s  %s %s\n" $ONLINE $IFACE_LOCAL $IP_LOCAL $REMOTE $PORT_LOCAL $DELTA $SEC
 done < <(wg show $IFACE_LOCAL dump | tail +2)
