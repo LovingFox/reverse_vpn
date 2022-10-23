@@ -22,7 +22,7 @@ do
 
     if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
     then
-        printf "(x) %s %5s %15s  %22s  %s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "" "-"
+        printf "( ) %s %5s %15s  %s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "no interface"
         continue
     fi
 
@@ -43,7 +43,7 @@ do
         fi
         if [ $LAST -eq 0 ]
         then
-            ONLINE="( )"
+            ONLINE="(-)"
             DELTA="-"
         fi
         printf "%s %s %5s %15s  %22s  %s\n" "$ONLINE" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL $REMOTE $DELTA
