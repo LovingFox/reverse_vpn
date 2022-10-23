@@ -42,6 +42,6 @@ do
             DELTA="-"
             SEC=""
         fi
-        printf "%s %s %15s  %22s  %s  %s %s\n" $ONLINE $IFACE_LOCAL $IP_LOCAL $REMOTE $PORT_LOCAL $DELTA $SEC
+        printf "%s %s %15s  %22s  %s  %s %s\n" "$ONLINE" $IFACE_LOCAL $IP_LOCAL $REMOTE $PORT_LOCAL $DELTA $SEC
     done < <(wg show $IFACE_LOCAL dump | tail +2)
 done
