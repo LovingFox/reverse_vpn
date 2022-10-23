@@ -30,5 +30,5 @@ do
     then
         DELTA="-"
     fi
-    printf "%s %s %22s %s sec\n" $ONLINE $IFACE_LOCAL $REMOTE $PORT_LOCAL $IPS $DELTA
+    printf "%s %s %22s  %s  %s  %s sec\n" $ONLINE $IFACE_LOCAL $REMOTE $PORT_LOCAL $IPS $DELTA
 done < <(wg show $IFACE_LOCAL dump | tail +2)
