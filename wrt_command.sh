@@ -2,51 +2,34 @@
 
 set -e
 
-SERVER="debian.rtru.tk"
-PREFIX="10.200.0.0/16"
-NETWORK="10.200.0.0"
-MASK="255.255.0.0"
-
 ID=$1 && shift
 
-ID5D=$(printf "%05d" $ID)
-KEYFILE="${ID5D}_private.key"
+BASE=$(dirname $0)
+DBDIR="$BASE/db"
 
-[ ! -f "$KEYFILE" ] && echo "File $KEYFILE does no extst" && exit 1
-
-PORT=$(cat ${ID5D}_port)
-KEY_CLIENT=$(cat ${ID5D}_private_client.key)
-PUB=$(cat ${ID5D}_public.key)
-IP=$(cat ${ID5D}_ip)
-IP_CLIENT=$(cat ${ID5D}_ip_client)
-WG_IF="wg"
-
-NETWORK_ESC=$(echo "$NETWORK" | sed 's/\./\\./g')
+source "$BASE/source.sh"
+set_vars_files
+vars_from_files
 
 cat << EOF
 ######## ADD VPN TUNNEL
 
-uci add_list firewall.@zone[0].network="${WG_IF}"
+uci add_list firewall.@zone[0].network="${IFACE_REMOTE}"
 
-uci -q delete network.${WG_IF}
-uci set network.${WG_IF}="interface"
-uci set network.${WG_IF}.proto="wireguard"
-uci set network.${WG_IF}.private_key="${KEY_CLIENT}"
-uci add_list network.${WG_IF}.addresses="${IP_CLIENT}/31"
+uci -q delete network.${IFACE_REMOTE}
+uci set network.${IFACE_REMOTE}="interface"
+uci set network.${IFACE_REMOTE}.proto="wireguard"
+uci set network.${IFACE_REMOTE}.private_key="${KEY_REMOTE}"
+uci add_list network.${IFACE_REMOTE}.addresses="${IP_REMOTE}/31"
 
 uci -q delete network.wgserver
-uci set network.wgserver="wireguard_${WG_IF}"
-uci set network.wgserver.public_key="${PUB}"
+uci set network.wgserver="wireguard_${IFACE_REMOTE}"
+uci set network.wgserver.public_key="${PUB_LOCAL}"
 uci set network.wgserver.endpoint_host="${SERVER}"
-uci set network.wgserver.endpoint_port="${PORT}"
+uci set network.wgserver.endpoint_port="${PORT_LOCAL}"
 uci set network.wgserver.route_allowed_ips="1"
 uci set network.wgserver.persistent_keepalive="25"
-uci add_list network.wgserver.allowed_ips="$IP,$PREFIX"
-
-ROUTE=\$(uci add network route)
-uci set network.\$ROUTE.interface="${WG_IF}"
-uci set network.\$ROUTE.target="$NETWORK"
-uci set network.\$ROUTE.netmask="$MASK"
+uci add_list network.wgserver.allowed_ips="$IP_LOCAL"
 
 uci commit network
 
@@ -54,11 +37,9 @@ uci commit network
 /etc/init.d/network restart
 
 ######## DELETE VPN TUNNEL
-uci add_list firewall.@zone[0].network="${WG_IF}"
-uci -q delete network.${WG_IF}
+uci add_list firewall.@zone[0].network="${IFACE_REMOTE}"
+uci -q delete network.${IFACE_REMOTE}
 uci -q delete network.wgserver
-ROUTE=\$(uci show network | sed -n 's/network\\.\\(.*\\)\\.target=.*$NETWORK_ESC.*/\\1/p')
-uci delete network.\$ROUTE
 
 uci commit network
 
