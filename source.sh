@@ -5,7 +5,7 @@ set_vars_files() {
     export IDTEXT=$(printf "%05d" $ID)
 
     export SERVER="debian.rtru.tk"
-    export STAT_MAXDELTA1=300
+    export STAT_MAXDELTA1=120
     export STAT_MAXDELTA2=900
 
     export IFACE_LOCAL="wg$IDTEXT"
