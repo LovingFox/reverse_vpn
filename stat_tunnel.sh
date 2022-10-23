@@ -27,4 +27,4 @@ do
         fi
     fi
     echo $(printf "%s  %s  %s  %s sec" $ONLINE $REMOTE $IPS $DELTA)
-done < <(wg show $IFACE_LOCAL dump | grep ":")
+done < <(wg show $IFACE_LOCAL dump | tail +2)
