@@ -47,5 +47,5 @@ do
             DELTA="-"
         fi
         printf "%s %s %5s %15s  %22s  %s\n" "$ONLINE" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL $REMOTE $DELTA
-    done < <(wg show $IFACE_LOCAL dump | tail +2)
+    done < <($SUDO wg show $IFACE_LOCAL dump | tail +2)
 done

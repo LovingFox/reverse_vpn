@@ -4,6 +4,8 @@ set_vars_files() {
     local ID=$1
     export IDTEXT=$(printf "%05d" $ID)
 
+    #export SUDO=""
+    export SUDO="sudo -u root"
     export SERVER="debian.rtru.tk"
     export STAT_MAXDELTA1=120
     export STAT_MAXDELTA2=600

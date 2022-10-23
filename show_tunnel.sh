@@ -23,4 +23,4 @@ echo -e "\n### IP Rule"
 ip rule show pref $PREF_LOCAL
 
 echo -e "\n### Wireguard"
-wg show $IFACE_LOCAL
+$SUDO wg show $IFACE_LOCAL
