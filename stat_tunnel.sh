@@ -20,6 +20,12 @@ do
     set_vars_files $ID
     vars_from_files
 
+    if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
+    then
+        printf "(x) %s %15s  %22s  %5s  %s\n" $IFACE_LOCAL $IP_LOCAL "" "" "-"
+        continue
+    fi
+
     CURRENT=$(date +%s)
     while read -r LINE
     do
@@ -35,13 +41,11 @@ do
                 ONLINE="(.)"
             fi
         fi
-        SEC="sec"
         if [ $LAST -eq 0 ]
         then
             ONLINE="( )"
             DELTA="-"
-            SEC=""
         fi
-        printf "%s %s %15s  %22s  %s  %s %s\n" "$ONLINE" $IFACE_LOCAL $IP_LOCAL $REMOTE $PORT_LOCAL $DELTA $SEC
+        printf "%s %s %15s  %22s  %5s  %s\n" "$ONLINE" $IFACE_LOCAL $IP_LOCAL $REMOTE $PORT_LOCAL $DELTA
     done < <(wg show $IFACE_LOCAL dump | tail +2)
 done

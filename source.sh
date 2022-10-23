@@ -60,5 +60,4 @@ vars_from_files() {
            export $VARNAME
        fi
     done
-    true
 }
