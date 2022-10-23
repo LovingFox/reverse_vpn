@@ -12,7 +12,9 @@ set_vars_files
 vars_from_files
 
 cat << EOF
-######## ADD VPN TUNNEL
+##############################################
+##### openwrt CREATE vpn tunnel commands #####
+##############################################
 
 uci add_list firewall.@zone[0].network="${IFACE_REMOTE}"
 
@@ -35,15 +37,4 @@ uci commit network
 
 /etc/init.d/firewall restart
 /etc/init.d/network restart
-
-######## DELETE VPN TUNNEL
-uci add_list firewall.@zone[0].network="${IFACE_REMOTE}"
-uci -q delete network.${IFACE_REMOTE}
-uci -q delete network.wgserver
-
-uci commit network
-
-/etc/init.d/firewall restart
-/etc/init.d/network restart
-
 EOF
