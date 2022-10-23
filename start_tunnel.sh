@@ -11,7 +11,7 @@ source "$BASE/source.sh"
 set_vars_files $ID
 vars_from_files
 
-printf "%70s" "Creating $IFACE_LOCAL interface ($IP_LOCAL -> $IP_REMOTE, port $PORT_LOCAL)... "
+printf "%-70s" "Creating $IFACE_LOCAL interface ($IP_LOCAL -> $IP_REMOTE, port $PORT_LOCAL)... "
 if ip link show dev $IFACE_LOCAL > /dev/null 2>&1
 then
     echo "Skip, exists"
@@ -24,7 +24,7 @@ else
     echo "Done"
 fi
 
-printf "%70s" "Adding default -> $IFACE_LOCAL in $TAB_LOCAL table... "
+printf "%-70s" "Adding default -> $IFACE_LOCAL in $TAB_LOCAL table... "
 if [[ $(ip route show table $TAB_LOCAL) ]]
 then
     echo "Skip, not empty"
@@ -33,7 +33,7 @@ else
     echo "Done"
 fi
 
-printf "%70s" "Inserting ip rule from $IP_LOCAL with pref $PREF_LOCAL... "
+printf "%-70s" "Inserting ip rule from $IP_LOCAL with pref $PREF_LOCAL... "
 if [[ $(ip rule show pref $PREF_LOCAL) ]]
 then
     echo "Skip, exists"
