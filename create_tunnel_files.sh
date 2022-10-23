@@ -15,7 +15,7 @@ DBDIR="$BASE/db"
 mkdir -p "$DBDIR"
 source "$BASE/source.sh"
 
-set_vars_files
+set_vars_files $ID
 var_to_files
 
 echo "Files are created"

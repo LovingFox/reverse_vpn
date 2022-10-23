@@ -10,7 +10,7 @@ BASE=$(dirname $0)
 DBDIR="$BASE/db"
 
 source "$BASE/source.sh"
-set_vars_files
+set_vars_files $ID
 vars_from_files
 
 echo -e "\n== Tunnel Interface"
