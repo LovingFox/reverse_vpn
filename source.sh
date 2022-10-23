@@ -6,7 +6,7 @@ set_vars_files() {
 
     export SERVER="debian.rtru.tk"
     export STAT_MAXDELTA1=120
-    export STAT_MAXDELTA2=900
+    export STAT_MAXDELTA2=600
 
     export IFACE_LOCAL="wg$IDTEXT"
     export IFACE_REMOTE="wg$IDTEXT"
