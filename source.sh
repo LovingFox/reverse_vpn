@@ -6,7 +6,7 @@ set_vars_files() {
 
     #export SUDO=""
     export SUDO="sudo -u root"
-    export SERVER="debian.rtru.tk"
+    export SERVER="79.98.11.178"
     export STAT_MAXDELTA1=120
     export STAT_MAXDELTA2=600
 
