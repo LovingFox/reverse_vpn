@@ -22,7 +22,13 @@ do
 
     if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
     then
-        printf "( ) %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(no_interface)"
+        printf "( ) %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(no_iface)"
+        continue
+    fi
+
+    if [ -z "$(ip link show dev $IFACE_LOCAL | grep DOWN)" ]
+    then
+        printf "(-) %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(iface_down)"
         continue
     fi
 
