@@ -1,6 +1,21 @@
 #!/bin/bash
 
-set_vars_files() {
+export DBDIR="$BASE/db"
+export RSDIR="$BASE/rs"
+
+function set_resources_vars() {
+    export IPPREFIX="10.10"
+    export START_PORT=3001
+    export START_TAB=1001
+    export START_PREF=1001
+    export RS_IDS_FILE="rs_ids"
+    export RS_IPS_FILE="rs_ips"
+    export RS_PORTS_FILE="rs_ports"
+    export RS_TABS_FILE="rs_tabs"
+    export RS_PREFS_FILE="rs_prefs"
+}
+
+function set_vars_files() {
     local ID=$1
     export IDTEXT=$(printf "%05d" $ID)
 
@@ -26,7 +41,7 @@ set_vars_files() {
     export IP_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote_ip"
 }
 
-var_to_files() {
+function var_to_files() {
     FILES_ERROR=0
     for VAR in $(env | grep __FILE | sed 's/=.*//')
     do
@@ -49,7 +64,7 @@ var_to_files() {
     echo "$PORT_LOCAL" > $PORT_LOCAL__FILE
 }
 
-vars_from_files() {
+function vars_from_files() {
     for FILE_VARNAME in $(env | grep __FILE | sed 's/=.*//')
     do
        FILE_NAME=$(echo ${!FILE_VARNAME})
@@ -63,4 +78,78 @@ vars_from_files() {
            export $VARNAME
        fi
     done
+}
+
+# Find resource
+function find_res() {
+  local FILE=$1; shift
+  local RESOURCE=$1; shift
+
+  if [ -z "$FILE" ]
+  then
+    echo "File name is empty" >&2
+    return
+  fi
+
+  if [ -z "$RESOURCE" ]
+  then
+    RESOURCE=$(head -n 1 $FILE) || return
+  else
+    RESOURCE=$(sed -n '/^'$RESOURCE'$/p' $FILE) || return
+  fi
+
+  [ -z "$RESOURCE" ] || echo $RESOURCE
+}
+
+# Take resource (remove it from the resource file)
+function get_res() {
+  local FILE=$1; shift
+  local RESOURCE=$1; shift
+
+  if [ -z "$FILE" ]
+  then
+    echo "File name is empty" >&2
+    return
+  fi
+
+  if [ -z "$RESOURCE" ]
+  then
+    echo "Resource field is empty" >&2
+  else
+    RESOURCE_CHECK=$(find_res $FILE $RESOURCE)
+    if [ -z "$RESOURCE_CHECK" ]
+    then
+      echo "Resource $RESOURCE does not exist in $FILE" >&2
+      return
+    else
+      sed -i '/^'$RESOURCE'$/d' $FILE || return
+    fi
+  fi
+
+  echo $RESOURCE
+}
+
+# Return resource (add it to the end of the resource file)
+function set_res() {
+  local FILE=$1; shift
+  local RESOURCE=$1; shift
+
+  if [ -z "$FILE" ]
+  then
+    echo "File name is empty" >&2
+    return
+  fi
+
+  if [ -z "$RESOURCE" ]
+  then
+    echo "Resource field is empty" >&2
+  else
+    RESOURCE_CHECK=$(find_res $FILE $RESOURCE)
+    if [ -z "$RESOURCE_CHECK" ]
+    then
+      echo "$RESOURCE" | tee -a $FILE
+    else
+      echo "Resource $RESOURCE is already set in $FILE" >&2
+    fi
+  fi
 }

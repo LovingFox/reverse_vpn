@@ -2,14 +2,11 @@
 
 set -e
 
-set -e
+BASE=$(dirname $0)
+source "$BASE/source.sh"
 
 ID=$1 && shift
 
-BASE=$(dirname $0)
-DBDIR="$BASE/db"
-
-source "$BASE/source.sh"
 set_vars_files $ID
 vars_from_files
 
