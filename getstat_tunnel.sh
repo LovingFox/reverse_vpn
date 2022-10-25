@@ -26,7 +26,7 @@ do
         continue
     fi
 
-    if [ -z "$(ip link show dev $IFACE_LOCAL | grep DOWN)" ]
+    if [ -n "$(ip link show dev $IFACE_LOCAL | grep DOWN)" ]
     then
         printf "(-) %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(iface_down)"
         continue
