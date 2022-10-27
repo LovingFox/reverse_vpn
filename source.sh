@@ -29,7 +29,75 @@ function set_vars_files() {
 
     export KEY_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote.key"
     export PUB_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote.pub"
-    export IP_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote_ip"
+    export IP_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote.ip"
+}
+
+function valid_ip()
+{
+    local  ip=$1
+    local  stat=1
+
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        stat=$?
+    fi
+    return $stat
+}
+
+function check_and_get_id_list() {
+    TEST_LIST=$@
+
+    if [ ! -d "$DBDIR" ]
+    then
+        echo "$DBDIR not found" >&2
+        return
+    fi
+
+    if [ -z "$TEST_LIST" ]
+    then
+        echo "Empty ID list" >&2
+        return
+    fi
+
+    for ITEM in $TEST_LIST
+    do
+        if [ "$ITEM" = "all" ]
+        then
+            ls -1 $DBDIR | sed 's/_.*//; s/^0*//' | sort -u
+            return
+        fi
+
+        if [[ "$ITEM" =~ ^[0-9]+$ ]]
+        then
+            ID=$ITEM
+        elif [[ "$ITEM" =~ ^wg[0-9]{5}$ ]]
+        then
+            ID=$(echo $ITEM | sed 's/wg//; s/^0*//')
+        elif valid_ip $ITEM
+        then
+            ID=$(grep "$ITEM" $DBDIR/*_{local,remote}.ip | sed 's/_\(local\|remote\)\.ip.*//; s/.*0//' | sort -u | head -n 1)
+            if [ -z "$ID" ]
+            then
+                echo "IP '$ITEM' not found" >&2
+                continue
+            fi
+        else
+            echo "Unknow item '$ITEM'" >&2
+            continue
+        fi
+
+        if [ -z "$(ls -1 $DBDIR/ | grep $(printf '%05d' $ID))" ]
+        then
+            echo "ID '$ID' not found" >&2
+        else
+            echo $ID
+        fi
+    done
 }
 
 function var_to_files() {

@@ -5,13 +5,7 @@ set -e
 BASE=$(dirname $0)
 source "$BASE/source.sh"
 
-if [ $# -eq 0 ]
-then
-    [ -d "$DBDIR" ] || (echo "$DBDIR not found" >&2 && exit 1)
-    LIST=$(ls -1 $DBDIR | sed 's/_.*//; s/^0*//' | sort -u)
-else
-    LIST=$@
-fi
+LIST=$(check_and_get_id_list $@)
 
 for ID in $LIST
 do

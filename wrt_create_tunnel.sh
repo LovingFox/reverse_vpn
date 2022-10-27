@@ -5,12 +5,14 @@ set -e
 BASE=$(dirname $0)
 source "$BASE/source.sh"
 
-ID=$1 && shift
+LIST=$(check_and_get_id_list $@)
 
-set_vars_files $ID
-vars_from_files
+for ID in $LIST
+do
+    set_vars_files $ID
+    vars_from_files
 
-cat << EOF
+    cat << EOF
 ##############################################
 ##### openwrt CREATE vpn tunnel commands #####
 ##############################################
@@ -39,3 +41,4 @@ uci commit network
 /etc/init.d/firewall restart
 /etc/init.d/network restart
 EOF
+done
