@@ -18,3 +18,9 @@ set_vars_files $ID
 var_to_files
 
 echo "Files are created"
+echo "ID: $ID"
+echo "Tunnel:"
+echo "  iface: $IFACE_LOCAL"
+echo "  port: $PORT_LOCAL"
+echo "  ip: $IP_LOCAL remote: $IP_REMOTE"
+echo "Table: $TAB_LOCAL, Pref: $PREF_LOCAL"

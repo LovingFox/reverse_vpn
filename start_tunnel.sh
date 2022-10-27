@@ -13,7 +13,7 @@ vars_from_files
 printf "%-70s" "Creating $IFACE_LOCAL interface ($IP_LOCAL -> $IP_REMOTE, port $PORT_LOCAL)... "
 if ip link show dev $IFACE_LOCAL > /dev/null 2>&1
 then
-    echo "Skip, exists"
+    echo "Skip"
 else
     $SUDO ip link add dev $IFACE_LOCAL type wireguard
     $SUDO ip addr add $IP_LOCAL/31 dev $IFACE_LOCAL
@@ -26,7 +26,7 @@ fi
 printf "%-70s" "Adding default -> $IFACE_LOCAL in $TAB_LOCAL table... "
 if [[ $(ip route show table $TAB_LOCAL) ]]
 then
-    echo "Skip, not empty"
+    echo "Skip"
 else
     $SUDO ip route add default dev $IFACE_LOCAL table $TAB_LOCAL
     echo "Done"
@@ -35,7 +35,7 @@ fi
 printf "%-70s" "Inserting ip rule from $IP_LOCAL with pref $PREF_LOCAL... "
 if [[ $(ip rule show pref $PREF_LOCAL) ]]
 then
-    echo "Skip, exists"
+    echo "Skip"
 else
     $SUDO ip rule add pref $PREF_LOCAL from $IP_LOCAL lookup $TAB_LOCAL
     echo "Done"

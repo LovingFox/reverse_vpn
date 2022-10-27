@@ -70,3 +70,77 @@ function vars_from_files() {
        fi
     done
 }
+
+# Find resource
+function find_res() {
+  local FILE=$1; shift
+  local RESOURCE=$1; shift
+
+  if [ -z "$FILE" ]
+  then
+    echo "File name is empty" >&2
+    return
+  fi
+
+  if [ -z "$RESOURCE" ]
+  then
+    RESOURCE=$(head -n 1 $FILE) || return
+  else
+    RESOURCE=$(sed -n '/^'$RESOURCE'$/p' $FILE) || return
+  fi
+
+  [ -z "$RESOURCE" ] || echo $RESOURCE
+}
+
+# Take resource (remove it from the resource file)
+function get_res() {
+  local FILE=$1; shift
+  local RESOURCE=$1; shift
+
+  if [ -z "$FILE" ]
+  then
+    echo "File name is empty" >&2
+    return
+  fi
+
+  if [ -z "$RESOURCE" ]
+  then
+    echo "Resource field is empty" >&2
+  else
+    RESOURCE_CHECK=$(find_res $FILE $RESOURCE)
+    if [ -z "$RESOURCE_CHECK" ]
+    then
+      echo "Resource $RESOURCE does not exist in $FILE" >&2
+      return
+    else
+      sed -i '/^'$RESOURCE'$/d' $FILE || return
+    fi
+  fi
+
+  echo $RESOURCE
+}
+
+# Return resource (add it to the end of the resource file)
+function set_res() {
+  local FILE=$1; shift
+  local RESOURCE=$1; shift
+
+  if [ -z "$FILE" ]
+  then
+    echo "File name is empty" >&2
+    return
+  fi
+
+  if [ -z "$RESOURCE" ]
+  then
+    echo "Resource field is empty" >&2
+  else
+    RESOURCE_CHECK=$(find_res $FILE $RESOURCE)
+    if [ -z "$RESOURCE_CHECK" ]
+    then
+      echo "$RESOURCE" | tee -a $FILE
+    else
+      echo "Resource $RESOURCE is already set in $FILE" >&2
+    fi
+  fi
+}
