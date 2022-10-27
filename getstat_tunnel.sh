@@ -18,10 +18,10 @@ do
         continue
     fi
 
+    STATUS=" UP "
     if [ -n "$(ip link show dev $IFACE_LOCAL | grep DOWN)" ]
     then
-        printf "(-) %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(iface_down)"
-        continue
+        STATUS="down"
     fi
 
     CURRENT=$(date +%s)
@@ -44,6 +44,6 @@ do
             ONLINE="(-)"
             DELTA="-"
         fi
-        printf "%s %s %5s %15s  %22s  %s\n" "$ONLINE" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL $REMOTE $DELTA
+        printf "%s %s  %s %5s %15s  %22s  %s\n" "$ONLINE" "$STATUS" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL $REMOTE $DELTA
     done < <($SUDO wg show $IFACE_LOCAL dump | tail +2)
 done
