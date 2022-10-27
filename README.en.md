@@ -2,15 +2,15 @@
 
 [Russin version](README.ru.md)
 
-### Description
+## Description
 
 Using wireguard for tunneling the proxy packets via remote OpenWRT devices.
 
-#### Scheme
+### Scheme
 
 ![Scheme of the network](scheme.png)
 
-#### Files
+### Files
 
 | File                  | Description                                |
 |-----------------------|--------------------------------------------|
@@ -23,9 +23,9 @@ Using wireguard for tunneling the proxy packets via remote OpenWRT devices.
 | wrt_destroy_tunnel.sh | Shell commands to stop tunnel on OpenWRT   |
 | source.sh             | Common bash functions and vars             |
 
-### Usage
+## Usage
 
-#### Wireguard scripts
+### Wireguard scripts
 
 ##### Create files for wireguard tunnel
 
@@ -95,19 +95,35 @@ Example
 ./getstat_tunnel.sh <ID | wg interface | IP local | IP remote>
 ```
 
-##### Print shell commands for creating tunnel on a OpenWRT 
+##### Print shell commands for creating and destroing tunnel on a OpenWRT 
 
 ```bash
 ./wrt_create_tunnel.sh <ID | wg interface | IP local | IP remote>
-```
-
-##### Print shell commands for destroing tunnel on a OpenWRT 
-
-```bash
 ./wrt_destroy_tunnel.sh <ID | wg interface | IP local | IP remote>
 ```
 
-#### 3Proxy example config related to tunnels
+> There is possible to change server public IP that prints by that commands. Just set a `SERVER` correct value.
+
+```bash
+export SERVER=1.1.1.1
+./wrt_create_tunnel.sh 1
+```
+
+##### Remove all info of the tunnel
+
+Steps for tunnel ID `1` as an example
+
+1. print commands to destroy tunnel on a OpenWRT
+2. stop the tunnel
+3. remove files related to the tunnel from `./db`
+
+```bash
+./wrt_destroy_tunnel.sh 1
+./stop_tunnel.sh 1
+rm -r ./db/00001_*
+```
+
+### 3Proxy example config related to tunnels
 
 ```conf
 proxy -e10.10.0.0   -i172.16.96.3 -p34001
