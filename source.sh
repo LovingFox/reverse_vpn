@@ -68,7 +68,7 @@ function check_and_get_id_list() {
     do
         if [ "$ITEM" = "all" ]
         then
-            ls -1 $DBDIR | sed 's/_.*//; s/^0*//' | sort -u
+            ls -1 $DBDIR | sed 's/_.*//; s/^0*//' | sort -n -u
             return
         fi
 
