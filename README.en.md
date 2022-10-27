@@ -38,7 +38,9 @@ The command creates files for the tunnel in `./db` directory
 1. `<ID>` unique id of the tunnel. Just an arbitrary number.
 1. `<IP>` local IP address of the tunnel
 1. `<IP remote>` remote IP address of the tunnel (on the OpenWRT)
-   `<IP>` and `<IP remote>` have to be in the same /31 subnet
+
+> `<IP>` and `<IP remote>` have to be in the same /31 subnet
+
 1. `<UDP>` listening UDP port for the tunnel
 1. `<table ID>` routing table id for the tunnel (ip route show table `<table ID>`)
 1. `<rule ID>` rule id for the tunnel (ip rule show pref `<table ID>`)
