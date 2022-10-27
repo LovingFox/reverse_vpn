@@ -14,7 +14,7 @@ do
 
     if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
     then
-        printf "( ) %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(no_iface)"
+        printf "( )       %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(no_iface)"
         continue
     fi
 
