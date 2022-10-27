@@ -1,6 +1,12 @@
 #!/bin/bash
 
-set_vars_files() {
+export DBDIR="$BASE/db"
+
+function init_db {
+    mkdir -p "$DBDIR"
+}
+
+function set_vars_files() {
     local ID=$1
     export IDTEXT=$(printf "%05d" $ID)
 
@@ -26,12 +32,12 @@ set_vars_files() {
     export IP_REMOTE__FILE="${DBDIR}/${IDTEXT}_remote_ip"
 }
 
-var_to_files() {
-    FILES_ERROR=0
+function var_to_files() {
+    local FILES_ERROR=0
     for VAR in $(env | grep __FILE | sed 's/=.*//')
     do
         FILE=$(echo ${!VAR})
-        [ -f "$FILE" ] && >&2 echo "File $FILE extsts" && FILES_ERROR=1
+        [ -f "$FILE" ] && echo "File $FILE extsts" >&2 && FILES_ERROR=1
     done
     if [ "$FILES_ERROR" = "1" ]; then exit 1; fi
 
@@ -49,7 +55,7 @@ var_to_files() {
     echo "$PORT_LOCAL" > $PORT_LOCAL__FILE
 }
 
-vars_from_files() {
+function vars_from_files() {
     for FILE_VARNAME in $(env | grep __FILE | sed 's/=.*//')
     do
        FILE_NAME=$(echo ${!FILE_VARNAME})

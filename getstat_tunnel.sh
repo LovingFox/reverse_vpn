@@ -3,17 +3,15 @@
 set -e
 
 BASE=$(dirname $0)
-DBDIR="$BASE/db"
+source "$BASE/source.sh"
 
 if [ $# -eq 0 ]
 then
-    [ -d "$DBDIR" ] || (echo "$DBDIR not found" && exit 1)
+    [ -d "$DBDIR" ] || (echo "$DBDIR not found" >&2 && exit 1)
     LIST=$(ls -1 $DBDIR | sed 's/_.*//; s/^0*//' | sort -u)
 else
     LIST=$@
 fi
-
-source "$BASE/source.sh"
 
 for ID in $LIST
 do
