@@ -80,7 +80,9 @@ function check_and_get_id_list() {
             ID=$(echo $ITEM | sed 's/wg//; s/^0*//')
         elif valid_ip $ITEM
         then
-            ID=$(grep "$ITEM" $DBDIR/*_{local,remote}.ip | sed 's/_\(local\|remote\)\.ip.*//; s/.*0//' | sort -u | head -n 1)
+            ID=$(grep -E "^${ITEM//./\\.}$" $DBDIR/*_{local,remote}.ip \
+                | sed 's/_\(local\|remote\)\.ip.*//; s/.*\///; s/^0*//' \
+                | sort -u | head -n 1)
             if [ -z "$ID" ]
             then
                 echo "IP '$ITEM' not found" >&2
