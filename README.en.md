@@ -25,7 +25,33 @@ Using wireguard for tunneling the proxy packets via remote OpenWRT devices.
 
 ## Usage
 
+### Install Wireguard
+
+##### Debian server
+
+```bash
+sudo apt-get update
+sudo apt-get install wireguard
+```
+
+##### OpenWRT
+
+```bash
+opkg update
+# 21.02 or above
+opkg install wireguard-tools
+# 19.07 or lower
+opkg install wireguard
+```
+
 ### Wireguard scripts
+
+##### Fetch files
+
+```bash
+git clone https://github.com/LovingFox/reverse_vpn.git
+cd reverse_vpn
+```
 
 ##### Create files for wireguard tunnel
 
