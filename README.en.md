@@ -128,7 +128,7 @@ Example
 ./wrt_destroy_tunnel.sh <ID | wg interface | IP local | IP remote>
 ```
 
-> There is possible to change server public IP that prints by that commands. Just set a `SERVER` correct value.
+> It is possible to change server public IP that prints by that commands. Just set a `SERVER` correct value.
 
 ```bash
 export SERVER=1.1.1.1
