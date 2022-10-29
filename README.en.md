@@ -140,14 +140,22 @@ export SERVER=1.1.1.1
 Example for tunnel ID `1`
 
 1. show commands for destroying tunnel on a OpenWRT
-2. stop the tunnel on a server
-3. remove files related to the tunnel from `./db`
 
-```bash
-./wrt_destroy_tunnel.sh 1
-./stop_tunnel.sh 1
-rm -r ./db/00001_*
-```
+    ```bash
+    ./wrt_destroy_tunnel.sh 1
+    ```
+
+1. stop the tunnel on a server
+
+    ```bash
+    ./stop_tunnel.sh 1
+    ```
+
+1. remove files related to the tunnel from `./db`
+
+    ```bash
+    rm -r ./db/00001_*
+    ```
 
 ### 3Proxy example config related to tunnels
 
