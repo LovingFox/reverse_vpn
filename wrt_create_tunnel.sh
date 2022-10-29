@@ -32,7 +32,7 @@ uci set network.wgserver.public_key="${PUB_LOCAL}"
 uci set network.wgserver.endpoint_host="${SERVER}"
 uci set network.wgserver.endpoint_port="${PORT_LOCAL}"
 uci set network.wgserver.route_allowed_ips="1"
-uci set network.wgserver.persistent_keepalive="25"
+uci set network.wgserver.persistent_keepalive="$KEEPALIVE"
 uci add_list network.wgserver.allowed_ips="$IP_LOCAL"
 
 uci commit firewall
