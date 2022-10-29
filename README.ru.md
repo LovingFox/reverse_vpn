@@ -83,7 +83,7 @@ cd reverse_vpn
 ./start_tunnel.sh <ID | wg interface | IP local | IP remote | all>
 ```
 
-> `<parameter>` может быть не один, разделяются пробелом 
+> `<parameter>` может быть не один, разделяются пробелом  
 `all` приведет к тому, что будут pатронуты все тоннели из директории `./db`
 
 Пример
