@@ -46,7 +46,7 @@ opkg install wireguard
 
 ### Wireguard scripts
 
-##### Fetch files
+##### Fetch repository
 
 ```bash
 git clone https://github.com/LovingFox/reverse_vpn.git
