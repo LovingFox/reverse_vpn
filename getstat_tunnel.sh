@@ -36,7 +36,7 @@ do
             then
                 ONLINE="( **)"
             else
-                ONLINE="(  .)"
+                ONLINE="(  o)"
             fi
         fi
         if [ $LAST -eq 0 ]
