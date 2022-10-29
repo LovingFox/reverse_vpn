@@ -84,7 +84,7 @@ Example
 ```
 
 > `<parameter>` can be set more then once, separated by space  
-`all` leads to the fact that everyone available tunnels in ./db will be affected
+`all` leads to the fact that everyone available tunnels in `./db` will be affected
 
 Example
 
@@ -137,10 +137,10 @@ export SERVER=1.1.1.1
 
 ##### Remove all info of the tunnel
 
-Steps for tunnel ID `1` as an example
+Example for tunnel ID `1`
 
-1. print commands to destroy tunnel on a OpenWRT
-2. stop the tunnel
+1. show commands for destroying tunnel on a OpenWRT
+2. stop the tunnel on a server
 3. remove files related to the tunnel from `./db`
 
 ```bash
