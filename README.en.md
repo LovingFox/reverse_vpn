@@ -121,6 +121,25 @@ Example
 ./getstat_tunnel.sh <ID | wg interface | IP local | IP remote>
 ```
 
+Example
+
+```bash
+$ ./getstat_tunnel.sh all
+(***)  UP   wg00001  3001       10.10.0.0    192.168.200.13:52122  100
+( **)  UP   wg00002  3002       10.10.0.2    192.168.200.14:38762  126
+(  o)  UP   wg00004  3004       10.10.0.6     192.168.208.4:60955  10339
+(***)  UP   wg00005  3005       10.10.0.8     192.168.208.5:38798  36
+(   )       wg00009  3009      10.10.0.16              (no_iface)
+(  -)  UP   wg00010  3010      10.10.0.18                  (none)  -
+(***)  UP   wg00011  3011      10.10.0.20    192.168.208.11:59157  18
+```
+
+* `(***)` was active less than 120 seconds ago
+* `( **)` was active less than 600 seconds ago
+* `(  o)` is not active more than 600 seconds
+* `(  -)` never been active after starting
+* `(   )` is not available as a system inteface
+
 ##### Print shell commands for creating and destroing tunnel on a OpenWRT 
 
 ```bash
