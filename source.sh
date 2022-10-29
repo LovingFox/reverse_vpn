@@ -16,7 +16,6 @@ function set_vars_files() {
     export KEEPALIVE=5
     export STAT_MAXDELTA1=120
     export STAT_MAXDELTA2=300
-    export STAT_MAXDELTA3=600
 
     export IFACE_LOCAL="wg$IDTEXT"
     export IFACE_REMOTE="wg$IDTEXT"

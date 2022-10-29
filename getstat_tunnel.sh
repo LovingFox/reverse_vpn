@@ -14,7 +14,7 @@ do
 
     if ! ip link show dev $IFACE_LOCAL > /dev/null 2>&1
     then
-        printf "    |       %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(no_iface)"
+        printf "   |       %s %5s %15s  %22s\n" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL "(no_iface)"
         continue
     fi
 
@@ -29,20 +29,18 @@ do
     do
         read -r _ _ REMOTE _ LAST RECEIVED SENT<<< $LINE
         DELTA=$(( $CURRENT - $LAST ))
-        ONLINE="****|"
+        ONLINE="***|"
         if [ $DELTA -gt $STAT_MAXDELTA1 ]
         then
             if [ $DELTA -le $STAT_MAXDELTA2 ]; then
-                ONLINE=" ***|"
-            elif [ $DELTA -le $STAT_MAXDELTA3 ]; then
-                ONLINE="  **|"
+                ONLINE=" **|"
             else
-                ONLINE="   o|"
+                ONLINE="  o|"
             fi
         fi
         if [ $LAST -eq 0 ]
         then
-            ONLINE="   -|"
+            ONLINE="  -|"
             DELTA="-"
         fi
         printf "%s %s  %s %5s %15s  %22s  %s\n" "$ONLINE" "$STATUS" $IFACE_LOCAL $PORT_LOCAL $IP_LOCAL $REMOTE $DELTA
