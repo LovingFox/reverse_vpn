@@ -30,6 +30,7 @@ do
     then
         echo "Skip"
     else
+        $SUDO ip link set $IFACE_LOCAL up
         $SUDO ip route add default dev $IFACE_LOCAL table $TAB_LOCAL
         echo "Done"
     fi
