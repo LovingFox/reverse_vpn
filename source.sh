@@ -13,7 +13,7 @@ function set_vars_files() {
     #export SUDO=""
     export SUDO="sudo -u root"
     export SERVER="${SERVER:-172.16.96.3}"
-    export STAT_MAXDELTA1=120
+    export STAT_MAXDELTA1=150
     export STAT_MAXDELTA2=600
 
     export IFACE_LOCAL="wg$IDTEXT"

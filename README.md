@@ -134,7 +134,7 @@ $ ./getstat_tunnel.sh all
 (***)  UP   wg00011  3011      10.10.0.20    192.168.208.11:59157  18
 ```
 
-* `(***)` was active less than 120 seconds ago
+* `(***)` was active less than 150 seconds ago
 * `( **)` was active less than 600 seconds ago
 * `(  o)` is not active more than 600 seconds
 * `(  -)` never been active after starting
