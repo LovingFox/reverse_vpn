@@ -14,8 +14,9 @@ function set_vars_files() {
     export SUDO="sudo -u root"
     export SERVER="${SERVER:-172.16.96.3}"
     export KEEPALIVE=5
-    export STAT_MAXDELTA1=150
-    export STAT_MAXDELTA2=600
+    export STAT_MAXDELTA1=120
+    export STAT_MAXDELTA2=300
+    export STAT_MAXDELTA3=600
 
     export IFACE_LOCAL="wg$IDTEXT"
     export IFACE_REMOTE="wg$IDTEXT"
