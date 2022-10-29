@@ -83,8 +83,7 @@ Example
 ./start_tunnel.sh <ID | wg interface | IP local | IP remote | all>
 ```
 
-> `<parameter>` can be set more then once, separated by space
-
+> `<parameter>` can be set more then once, separated by space[space][space]
 > `all` leads to the fact that everyone available tunnels in ./db will be affected
 
 Example
