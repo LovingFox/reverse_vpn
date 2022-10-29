@@ -20,7 +20,7 @@ do
         $SUDO ip link add dev $IFACE_LOCAL type wireguard
         $SUDO ip addr add $IP_LOCAL/31 dev $IFACE_LOCAL
         $SUDO bash -c "wg set $IFACE_LOCAL listen-port $PORT_LOCAL private-key <(echo $KEY_LOCAL)"
-        $SUDO wg set $IFACE_LOCAL peer $PUB_REMOTE persistent-keepalive 25 allowed-ips $IP_REMOTE,0.0.0.0/0
+        $SUDO wg set $IFACE_LOCAL peer $PUB_REMOTE persistent-keepalive $KEEPALIVE allowed-ips $IP_REMOTE,0.0.0.0/0
         $SUDO ip link set $IFACE_LOCAL up
         echo "Done"
     fi
