@@ -44,7 +44,7 @@ opkg install wireguard-tools
 opkg install wireguard
 ```
 
-### Wireguard скрипты
+### Wireguard скрипты (на сервере)
 
 ##### Скачать репозиторий
 

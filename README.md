@@ -44,7 +44,7 @@ opkg install wireguard-tools
 opkg install wireguard
 ```
 
-### Wireguard scripts
+### Wireguard scripts (server only)
 
 ##### Fetch repository
 
