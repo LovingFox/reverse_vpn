@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export DBDIR="$BASE/db"
+export DBDIR="${DBDIR:-$BASE/db}"
 
 function init_db {
     mkdir -p "$DBDIR"
@@ -13,9 +13,9 @@ function set_vars_files() {
     #export SUDO=""
     export SUDO="sudo -u root"
     export SERVER="${SERVER:-172.16.96.3}"
-    export KEEPALIVE=5
-    export STAT_MAXDELTA1=120
-    export STAT_MAXDELTA2=300
+    export KEEPALIVE="${KEEPALIVE:-25}"
+    export STAT_MAXDELTA1="${STAT_MAXDELTA1:-120}"
+    export STAT_MAXDELTA2="${STAT_MAXDELTA2:-300}"
 
     export IFACE_LOCAL="wg$IDTEXT"
     export IFACE_REMOTE="wg$IDTEXT"
